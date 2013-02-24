@@ -1,0 +1,7 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="Happening">
+            <directory>src/DavideDebernardi/Happening/Tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
