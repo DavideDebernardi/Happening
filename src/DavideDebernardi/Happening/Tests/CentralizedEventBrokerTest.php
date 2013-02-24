@@ -10,9 +10,9 @@ use DavideDebernardi\Happening\EventBrokerInterface,
     DavideDebernardi\Happening\EventBrokerAbstract;
 
 class CentralizedEventBrokerTest extends EventBrokerAbstractTest
-{	
-	protected function getBrokerMock()
-	{
-		return CentralizedEventBroker::getInstance();
-	}
+{    
+    protected function getBrokerMock()
+    {
+        return CentralizedEventBroker::getInstance();
+    }
 }

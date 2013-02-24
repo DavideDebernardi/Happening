@@ -3,5 +3,5 @@ namespace DavideDebernardi\Happening;
 
 interface EventEmitterInterface
 {
-	public function setEventBroker(EventBrokerInterface $broker = null);
+    public function setEventBroker(EventBrokerInterface $broker = null);
 }
