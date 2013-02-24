@@ -3,12 +3,20 @@ namespace DavideDebernardi\Happening;
 
 class EventBrokerAbstract implements EventBrokerInterface
 {
+	/**
+	 * Holding a list of emitters.
+	 * @var array 
+	 */
 	protected $emitters = array();
 	
+	/**
+	 * Holding a map with topic names as keys and a list of emitters per each topic.
+	 * @var array
+	 */
 	protected $listeners = array();
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 * 
 	 * @param EventEmitterInterface $emitter
 	 * @param EventInterface $event
@@ -22,7 +30,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 		}
 		$topic = $event->getTopic();
 		if($this->hasTopic($topic) && $this->topicHasListeners($topic)){
-			foreach ($this->listeners[$topic] as $listener) {
+			foreach ($this->getListenersByTopic($topic) as $listener) {
 				$listener->listenTo($event);
 				if($event->getStopPropagation()){
 					break;
@@ -33,7 +41,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 *
 	 * @param EventEmitterInterface $emitter
 	 * @return EventBrokerAbstract
@@ -48,7 +56,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 * 
 	 * @param EventEmitterInterface $emitter
 	 * @return EventBrokerAbstract
@@ -63,7 +71,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 * 
 	 * @param EventListenerInterface $listener
 	 * @param string $topic
@@ -80,7 +88,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 * 
 	 * @param EventListenerInterface $listener
 	 * @param string $topic
@@ -99,7 +107,7 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
+	 * {@inheritdoc}
 	 * 
 	 * @param string $topic
 	 * @return bool
@@ -112,8 +120,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param string $topic
 	 * @return EventBrokerAbstract
 	 */
@@ -126,8 +132,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param string $topic
 	 * @return EventBrokerAbstract
 	 */
@@ -138,8 +142,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param string $topic
 	 * @return bool
 	 */
@@ -149,8 +151,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param string $topic
 	 * @return bool
 	 */
@@ -160,8 +160,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventEmitterInterface $emitter
 	 * @return bool
 	 */
@@ -171,8 +169,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventEmitterInterface $emitter
 	 * @return EventBrokerAbstract
 	 */
@@ -183,8 +179,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventEmitterInterface $emitter
 	 * @return EventBrokerAbstract
 	 */
@@ -195,8 +189,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventListenerInterface $listener
 	 * @param string $topic
 	 * @return EventBrokerAbstract
@@ -208,8 +200,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventListenerInterface $listener
 	 * @param string $topic
 	 * @return bool
@@ -220,8 +210,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param EventListenerInterface $listener
 	 * @param string $topic
 	 * @return EventBrokerAbstract
@@ -233,8 +221,15 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
+	 * @param string $topic
+	 * @return array
+	 */
+	protected function getListenersByTopic($topic)
+	{
+		return $this->listeners[$topic];
+	}
+	
+	/**
 	 * @param string $topic
 	 * @return EventBrokerAbstract
 	 * @throws \UnexpectedValueException
@@ -248,8 +243,6 @@ class EventBrokerAbstract implements EventBrokerInterface
 	}
 	
 	/**
-	 * 
-	 * 
 	 * @param mixed $object
 	 * @return string
 	 */
